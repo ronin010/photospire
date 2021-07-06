@@ -1,0 +1,7 @@
+
+
+configure custom hook for authenticating users
+
+re-factor all classed based components to hooks
+
+figure out image upload without reqeust aborting
