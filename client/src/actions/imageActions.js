@@ -51,7 +51,7 @@ export const loadImage = (fileName, token, username) => {
     }
 
 
-    axios.get(`${BASE_URL}/api/photos/${username}/${fileName}`, config)
+    axios.get(`${BASE_URL}/api/photos/images/${username}/${fileName}`, config)
     .then((res) => {
       dispatch({type: "SET_ACTIVE", payload: res.data.image});
       const length = res.data.image.Likes.length;
@@ -211,8 +211,26 @@ export const setImage = (newImage, previewImage) => {
   }
 }
 
-export const search = (parameter) => {
+export const loadFollowerImages = (token) => {
   return (dispatch) => {
+    const config = {
+      headers: {
+        "Authorization": token
+      }
+    }
 
+    axios.get(`${BASE_URL}/api/photos/feed/all`, config)
+    .then((res) => {
+      if (res.data.posts.length > 0) {
+        dispatch({type: "SET_FEED_POSTS", payload: res.data.posts});
+      }
+    })
+    .catch((err) => console.log(err));
   }
+}
+
+export const sortPosts = (data) => {
+
+  
+
 }

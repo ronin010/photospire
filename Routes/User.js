@@ -45,7 +45,7 @@ const upload = multer({storage: storage});
 Router.get("/", JwtVerify, (req, res) => {
     const user = req.user.user;
     
-    User.findOne({UserName: req.user.user.UserName}, (err, user) => {
+    User.findOne({_id: user._id}, (err, user) => {
         if (user) {
             user.Password = ""; 
             jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
@@ -60,7 +60,7 @@ Router.get("/", JwtVerify, (req, res) => {
 
 // @GET /api/users/profile/:id
 // load a users profile data and do not sign a JWT
-Router.get("/profile/:username", (req, res) => {
+Router.get("/profile/:username", JwtVerify, (req, res) => {
     User.findOne({UserName: req.params.username}, (err, user) => {
         if (user) {
             delete user.Password;
@@ -109,7 +109,7 @@ Router.post("/register", RegisterMiddleware, (req, res) => {
                                 imagePath = "./client/build/uploads" + user.UserName;
                             }
 
-                            fs.mkdirSync(imagePath);
+                            fs.mkdirSync(imagePath, { recursive: true });
                             jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
                                 delete user.Password;
                                 return res.status(201)
@@ -220,5 +220,65 @@ Router.post("/update-profile-image/", JwtVerify, upload.single("profileImage"), 
     })
 })
 
+// @POST /api/users/follow/add
+// @DESC - Allow a user to follow another user
+Router.post("/follow/add", JwtVerify, (req, res) => {
+    // username is the user being followed
+    // and followerName is the user following
+    const {username, followerName} = req.body;
+
+    User.findOne({UserName: username}, (err, user) => {
+        if (err) res.sendStatus(500)
+        User.findOne({UserName: followerName}, (err, follower) => {
+            if (err) res.sendStatus(500)
+
+            user.Followers.push(follower.UserName);
+            follower.Following.push(username);
+
+            user.markModified("Followers");
+            follower.markModified("Following");
+
+            user.save();
+            follower.save();
+
+            res.status(200)
+            .json({
+               username, followerName
+            })
+        })
+    })
+})
+
+// @POST /api/users/follow/remove
+// @DESC - one users unfollows another user
+Router.post("/follow/remove", JwtVerify, (req, res) => {
+    // username is the user being followed
+    // and followerName is the user unfollowing
+    const {username, followerName} = req.body;
+
+    User.findOne({UserName: username}, (err, user) => {
+        if (err) res.sendStatus(500)
+        User.findOne({UserName: followerName}, (err, follower) => {
+            if (err) res.sendStatus(500)
+
+            let followers = user.Followers;
+            let following = follower.Following;
+
+            followers.splice(followers.indexOf(username), 1);
+            following.splice(following.indexOf(follower), 1);
+
+            user.markModified("Followers");
+            follower.markModified("Following");
+
+            user.save();
+            follower.save();
+
+            res.status(200)
+            .json({
+               username, followerName
+            })
+        })
+    })
+})
 
 module.exports = Router;

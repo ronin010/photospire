@@ -7,7 +7,8 @@ const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 const JwtVerify = require("../Middleware/JwtVerify");
 const path = require("path");
-const comment = require("../Models/Comment")
+const comment = require("../Models/Comment");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -70,7 +71,7 @@ Router.post("/add", JwtVerify, upload.single("file"), (req, res) => {
 
 // @GET /api/photos/:username/:filename
 // @DESC - load the data for a particular image (likes, comments, name, etc...)
-Router.get("/:username/:filename", JwtVerify, (req, res) => {
+Router.get("/images/:username/:filename", JwtVerify, (req, res) => {
     const {username, filename} = req.params;
 
     User.findOne({UserName: username}, (err, user) => {
@@ -215,7 +216,6 @@ Router.post("/tags", JwtVerify, (req, res) => {
 // @BUGS - for some reason using method: GET returns 404 every time
 Router.post("/discover/:value", JwtVerify, (req, res) => {
     const {value} = req.params;
-    let userData = [];
     let images = [];
    
     // search for users (where the username contains the search query)
@@ -238,6 +238,26 @@ Router.post("/discover/:value", JwtVerify, (req, res) => {
             res.json({images, users})
         })
         
+    })
+})
+
+Router.get("/feed/all", JwtVerify, (req, res) => {
+    let posts = [];
+
+    User.findOne({_id: req.user.user._id}, (err, user) => {
+        if (err) res.sendStatus(500)
+
+        const following = user.Following;
+
+        User.find({"UserName": {$in: following}}, (err, users) => {
+
+            users.map((user) => {
+                posts.push.apply(posts, user.Images);
+            })
+    
+            res.status(200)
+            .json({posts});
+        })
     })
 })
 

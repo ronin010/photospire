@@ -16,8 +16,8 @@ import axios from "axios";
 
 const styles = (theme) => ({
   large: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    width: theme.spacing(10),
+    height: theme.spacing(10),
   },
 });
 
@@ -46,7 +46,7 @@ class EditProfile extends Component {
     }
 
     setTimeout(() => {
-      const BASE_URL = ""
+      const BASE_URL = "http://localhost:8000"
       this.props.loadUser(token);
       axios.get(`${BASE_URL}/api/users/`, config)
           .then((response) => {
@@ -120,7 +120,7 @@ class EditProfile extends Component {
       		return (
         		<div>
           				<NavBar title="Edit Profile" />
-          <div className="profile-image-div">
+          <div className="edit-profile-image-div">
             <Avatar
               className={this.props.classes.large}
               src={
@@ -185,7 +185,7 @@ class EditProfile extends Component {
           </div>
           <div className="save-div">
             <Button onClick={this.saveChanges} className="save-button" variant="outlined">
-              Save
+              Save Changes
             </Button>
             <Button onClick={this.cancel} className="save-button" variant="outlined">
               Cancel

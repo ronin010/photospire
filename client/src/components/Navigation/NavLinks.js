@@ -11,12 +11,10 @@ export default function NavLinks() {
 
   return (
     <div className="drawer-links">
-      <Button className="nav-link" onClick={() => routeToPage("/")}>HomePage</Button>
+      <Button className="nav-link" onClick={() => routeToPage("/")}>Home</Button>
       <Button className="nav-link" onClick={() => routeToPage("/login")}>Sign In</Button>
       <Button className="nav-link" onClick={() => routeToPage("/register")}>Register</Button>
-      <Button className="nav-link" onClick={() => routeToPage("https://github.com")}>Github repo</Button>
-      <Button className="nav-link" onClick={() => routeToPage("/register")}>Privacy policy</Button>
-      <Button className="nav-link" onClick={() => routeToPage("/faq")}>faq</Button>
+      <Button className="nav-link" onClick={() => routeToPage("https://github.com")}>Github</Button>
     </div>
   )
 }

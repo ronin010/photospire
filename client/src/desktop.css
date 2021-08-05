@@ -1,0 +1,290 @@
+@media screen and (min-width:1281px) { 
+    div.image-data {
+        width: 538px;
+    }
+
+    .feed-div {
+       display: flex;
+       flex-direction: row;
+    }
+
+    .feed-content {  
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        height: 300px;
+        margin-top: 20px;
+    }
+
+    .feed-profile {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        margin: 0 auto 10px auto;
+        width: 100%;
+        justify-content: center;
+        border: 1px solid lightgray;
+        border-radius: 8px;
+        padding: 20px 0px;
+    }
+
+    .feed-div {
+        width: 70%;
+        margin: 0 auto;
+        justify-content: center
+    }
+
+    .comments-main {
+        width: 538px;
+    }
+
+    .feed-acc-header {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .feed-acc-header:hover {
+        text-decoration: underline;
+    }
+
+    .feed-suggestions {
+        border: 1px solid lightgray;
+        border-radius: 8px;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .suggestions-header {
+        text-align: center;
+        text-decoration: underline;
+        margin-bottom: 10px;
+    }
+
+    .feed-tag {
+        margin: 20px auto;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .feed-tag:hover {
+        text-decoration: underline;
+    }
+
+    .feed-main {
+        margin-right: 30px;
+    }
+
+    .feed-card {
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .card-divider {
+        display: none;
+    }
+
+    .profile-state {
+        width: 530px;
+    }
+
+    /* .images {
+        width: 70%;
+    } */
+
+    /* .image {
+        width: 250px;
+        height: 250px;
+    }
+
+    img.user-image {
+        width: 250px;
+        height: 250px;
+    } */
+
+    .option-buttons {
+        width: 20%;
+    }
+
+    .register-div {
+        width: 480px;
+    }
+
+    .feed-search {
+        width: 50%;
+        margin: 30px auto 10px auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.MuiFormControl-root {
+       width: 60% !important;
+   }
+
+   .feed-search-button {
+       margin-left: 20px;
+       cursor: pointer;
+   }
+   div.profile-stats {
+       width: 1240px;
+       margin-top: 20px;
+       padding-left: 20px;
+       justify-content: flex-start;
+   }
+
+   div.posts-count {
+       margin-right: 20px;
+       padding-left: 20px;
+   }
+
+   div.profile-header {
+       width: 1240px;
+       justify-content: flex-start;
+       padding-left: 20px;
+   }
+
+   .follow-button-div {
+        width: 1240px;
+        padding-left: 20px;
+   }
+
+   .profile-images {
+       width: 1240px !important;
+   }
+
+   .profile-image {
+       width: 300px;
+       height: 300px;
+       
+   }
+   .edit-profile-image-div {
+        width: 300px !important;
+        margin: 20px auto 0px auto;
+    }   
+
+    .edit-button {
+        width: 400px;
+        padding-left: 20px;
+    }
+    .upload-text { 
+        display: inherit;
+        margin-right: 10px;
+    }
+
+    .upload-label {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .edit-button-div {
+        width: 1240px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 20px auto 0px auto;
+    }
+
+    .edit-button {
+        margin: 0 0 0 0;
+    }
+
+    .image-display {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 30px auto;
+        border: 1px solid lightgray;
+        border-radius: 8px;
+    }
+
+    .display-img {
+        margin: 0 auto;
+    }
+
+    .display-functions {
+        margin: 10px auto;
+    }
+
+    .date-header {
+        margin: 0 0 10px 0;
+        padding-left: 80px;
+    }
+
+    .display-image-div {
+        margin: 20px auto 0 auto;
+    }
+
+    .image-data {
+        width: 500px !important;
+    }
+
+    .post-content {
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    .feed-divider {
+        width: 80%;
+    }
+
+    .display-divider {
+        display: none;
+    }
+
+    .desktop-comments-main {
+        margin: 20px auto 0px auto;
+        width: 500px;
+    }
+
+    .display-main {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+        margin: 20px auto;
+    }
+
+    .mobile-comments {
+        display: none;
+    }
+    .desktop-comments {
+        display: inherit;
+    }
+
+    .comment-div {
+        width: 80%;
+    }
+
+    .edit-fields {
+        width: 500px;
+    }
+
+    .save-div {
+        width: 20%;
+    }
+
+    div.makeStyles-paper-3 {
+        width: 20% !important;
+    }
+
+    .profile-image-div {
+        width: 300px !important;
+        height: 300px;
+    }
+
+    .images {
+        width: 960px;
+    }
+
+    .user-search-results {
+        width: 20% !important;
+    }
+
+    div.MuiAlert-standardError {
+        margin-bottom: 30px;
+    }
+ }

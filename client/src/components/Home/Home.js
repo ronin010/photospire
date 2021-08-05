@@ -1,18 +1,10 @@
 import React, {Component} from "react";
 import NavBar from "../Navigation/NavBar";
-import {Typography, Button} from "@material-ui/core";
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import {Typography} from "@material-ui/core";
 import {withRouter, Redirect} from "react-router-dom";
 import {loadUser} from "../../actions/authActions";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-const theme = createMuiTheme({
-  palette: {
-    main: "white"
-  },
-});
 
 class Home extends Component {
   constructor(props) {
@@ -48,35 +40,33 @@ class Home extends Component {
 
   render() {
     if (this.props.isAuth) {
-      {/* redirect to the profile of the current loaded user */ }
-      {/* the userId is loaded from local storage after the user is loaded */}
-      return <Redirect to={`/profile/${this.props.user.UserName}`} />
+      return <Redirect to="/feed" />
     } else if (this.state.isLoading) {
       return <div className="lds-ripple"><div></div><div></div></div>
     } else {
       return (
-        <div>
-          <div className="home-div">
-          <NavBar />
-            <Typography variant="h4" style={{borderBottom: "2px solid #f50057", width: "300px", textAlign: "center", margin: "125px auto 10px auto"}}>
-              PhotoSpire
-            </Typography>
+        
+        <div className="home-div">
+        <NavBar />
+          <h2 className="home-header">
+            PhotoSpire
+          </h2>
+          <h3 className="moto">
+              Capture Your Inspiration
+          </h3>  
+          <div className="home-buttons">
+            <button onClick={() => this.routeToPage("/register")} className="register-link">
+              Create Free Account
+            </button>
             <Typography variant="h6">
-                Capture Your Inspiration
+            Or
             </Typography>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", marginTop: "70px"}}>
-              <button onClick={() => this.routeToPage("/register")} className="register-link">
-                Create Free Account
-              </button>
-              <Typography variant="h6">
-              Or
-              </Typography>
-              <button onClick={() => this.routeToPage("/login")} className="register-link">
-                Login With Account
-              </button>
-            </div>
+            <button onClick={() => this.routeToPage("/login")} className="register-link">
+              Login With Account
+            </button>
           </div>
         </div>
+       
       )
     }
   }

@@ -29,6 +29,14 @@ const UserSchema = new Schema({
     Images: {
         type: Array,
         required: false
+    },
+    Following: {
+        type: Array,
+        required: false
+    },
+    Followers: {
+        type: Array,
+        required: false
     }
 })
 

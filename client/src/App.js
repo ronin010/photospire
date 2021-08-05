@@ -1,4 +1,6 @@
 import './App.css';
+import "./tablet.css"
+import "./desktop.css"
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./components/Home/Home";
@@ -8,24 +10,24 @@ import Login from "./components/auth/Login";
 import EditProfile from "./components/Profile/EditProfile";
 import NoMatch from "./components/Navigation/NoMatch";
 import PrivateRoute from "./PrivateRoute";
-import {Edit} from "@material-ui/icons";
 import AddNewImage from "./components/Images/AddNewImage";
 import ImageDisplay from "./components/Images/ImageDisplay";
 import CommentsPage from "./components/Comments/CommentsPage"
 import ImageTagsList from "./components/Search/ImageTagsList";
-import UserSearch from "./components/Search/UserSearch";
 import Search from "./components/Search/Search";
+import Feed from "./components/Home/Feed";
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/search/:value" component={Search} />
+        <Route path="/profile/:username" component={Profile} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/search" component={Search} />
         <PrivateRoute>
-          <Route path="/profile/:username" component={Profile} />
+          <Route path="/feed" component={Feed} />
           <Route path="/user/:username/edit" component={EditProfile} />
           <Route path="/:username/add-image" component={AddNewImage} />
           <Route path="/images/:username/:filename" component={ImageDisplay} />

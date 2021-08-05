@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Search(props) {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
+  const {value} = useParams(); 
+  const [query, setQuery] = useState(value ? value : "");
   const [loading, setLoading] = useState(false);
   const [option, setOption] = useState("users");
   const [color, setColor] = useState({users: "secondary", tags: "default"})
@@ -37,6 +38,11 @@ export default function Search(props) {
   useEffect(() => {
 
     dispatch(loadUser(token));
+
+    if (value) {
+      submit();
+    }
+
   }, [dispatch]);
 
   const changeHandler = (e) => {
@@ -137,8 +143,7 @@ export default function Search(props) {
               }
             </div> : 
 
-            <div className="images">
-              {dataLoaded && imageMessage !== "" ? <h4 style={{textAlign: "center", margin: "20px auto 20px auto"}}>{imageMessage}</h4> : null}
+            <div className="images search-images">
               {
                results.length > 0 ? 
                   results[0].map((result) => (

@@ -9,7 +9,13 @@ const initialState = {
   likeColor: "black",
   imageLoaded: false,
   newComment: "",
-  imagesByTag: []
+  imagesByTag: [],
+  followingImages: [],
+  feedPosts: [],
+  following: [],
+  followers: [],
+  followingLength: 0,
+  followerLength: 0
 }
 
 const imageReducer = (state = initialState, action) => {
@@ -87,6 +93,44 @@ const imageReducer = (state = initialState, action) => {
         return {
           ...state,
           imagesByTag: action.payload
+        }
+
+      case "SET_FOLLOWING_IMAGES":
+        return {
+          ...state,
+          followingImages: [...state.followingImages, action.payload]
+        }
+
+      case "SET_FEED_POSTS":
+        return {
+          ...state,
+          feedPosts: [...state.feedPosts, action.payload]
+        }
+
+      case "SET_FOLLOWERS": 
+        return {
+          ...state,
+          followers: [...state.followers, action.payload.followers],
+          following: [...state.following, action.payload.following]
+        }
+
+      case "SET_FOLLOWING_LENGTH": 
+        return {
+          ...state,
+          followerLength: action.payload.followerLength,
+          followingLength: action.payload.followingLength
+        }
+
+      case "INCREMENT_FOLLOWER":
+        return {
+          ...state,
+          followerLength: state.followerLength + 1
+        }
+
+      case "DECREMENT_FOLLOWER":
+        return {
+          ...state,
+          followerLength: state.followerLength - 1
         }
 
     default:

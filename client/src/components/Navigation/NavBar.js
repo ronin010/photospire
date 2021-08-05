@@ -1,8 +1,8 @@
 import React, {Component} from "react"
-import {AppBar, Toolbar, IconButton, Typography, Button, Drawer, Link} from "@material-ui/core"
+import {AppBar, Toolbar, IconButton, Typography, Drawer} from "@material-ui/core"
 import {Menu} from "@material-ui/icons";
-import {withRouter, Redirect} from "react-router-dom";
-import {connect, useSelector, useDispatch} from "react-redux";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 import {compose} from "redux";
 import {logout} from "../../actions/authActions";
 import NavLinks from "./NavLinks";
@@ -37,30 +37,35 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{position: "sticky", top: "0", zIndex: "10"}}>
         <AppBar position="static" style={{background: "#00070c"}}>
           <Toolbar>
             <IconButton style={{color: "white"}} onClick={this.setOpen} edge="start" arial-label="menu" >
               <Menu />
             </IconButton>
-            <div className="page-header" style={{flexGrow: 1, marginTop: "5px"}}>
+            <div onClick={() => this.props.history.push("/feed")} className="page-header" style={{flexGrow: 1, marginTop: "5px", cursor: "pointer"}}>
               <Typography variant="h5" style={{textAlign: "center", color: "white"}}>
-                {this.props.title}
+                PhotoSpire
               </Typography>
             </div>
-            
-            <input
-          id="contained-button-file"
-          multiple
-          type="file"
-          style={{display: "none"}}
-          onChange={this.onImageChange}
-        />
-        <label style={{cursor: "pointer"}} htmlFor="contained-button-file">
-          <CameraAltIcon />
-        </label>
-              
-            
+            {
+              this.props.isAuth ? 
+              <div>
+                <input
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  style={{display: "none"}}
+                  onChange={this.onImageChange}
+                />
+                <label className="upload-label" style={{cursor: "pointer"}} htmlFor="contained-button-file">
+                  <h4 className="upload-text">Upload</h4>
+                  <CameraAltIcon />
+
+                </label>
+              </div>
+              : null
+            }  
           </Toolbar>
         </AppBar>
          <Drawer 

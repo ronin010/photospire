@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
 import Comment from "./Comment";
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Button from "@material-ui/core/Button"
 import {useSelector} from "react-redux"
 
 export default function Comments(props) {
@@ -9,21 +7,8 @@ export default function Comments(props) {
   const [comment, setComment] = useState("");
   const newComment = useSelector(state => state.images.newComment);
 
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  }
-
-  const postComment = (e) => {
-    e.preventDefault()
-    console.log(comment);
-  }
-
-  useEffect(() => {
-    console.log(props.comments);
-  }, [])
-
   return (
-    <div className="comments-main">
+    <div className="comments-main desktop-comments-main">
       {
         newComment ? <Comment postedBy={newComment.postedBy} text={newComment.text} date={newComment.datePosted} /> : null
       }

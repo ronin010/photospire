@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Avatar, makeStyles} from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ export default function Comment(props) {
   return (
     <div className="comment-div">
       <div className="comment">
-      <Avatar className={classes.small} src={`/uploads/${props.postedBy}/avatar.jpg`} />
+      <Avatar className={classes.small + " comment-avatar"} src={`/uploads/${props.postedBy}/avatar.jpg`} />
       <div className="comment-info">
         <a className="profile-link" href={`/profile/${props.postedBy}`}>
           <h3 style={{fontSize: "17px"}}>{props.postedBy}</h3>
@@ -24,7 +24,7 @@ export default function Comment(props) {
       
     </div>
     <div className="comment-text">
-      <p style={{marginLeft: "35px", marginTop: "10px", overflowWrap: "break-word"}}>
+      <p className="comment-content" >
         {props.text}
       </p>
     </div>

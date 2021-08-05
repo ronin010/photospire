@@ -1,0 +1,173 @@
+
+@media only screen and (min-width: 800px) {
+    .home-header {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .profile-stats {
+        width: 540px;
+    }
+
+    .image-functions {
+        width: 500px;
+    }
+
+    .date-header {
+        width: 500px;
+        padding-left: 100px;
+      }
+
+      .divider {
+        width: 538px;
+      }
+
+      img.feed-img {
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+      }
+
+      .image-page-div {
+        width: 500px;
+        height: 500px;
+      }
+
+      .post-content {
+        width: 500px;
+        font-size: 18px;
+      }
+
+      .edit-button {
+          width: 500px;
+          height: 35px;
+      }
+
+      .images {
+          width: 540px;
+      }
+
+      .edit-profile-image-div{
+        justify-content: flex-start;
+        width: 405px;
+    }
+
+    .upload-button {
+        margin-left: 40px !important;
+    }
+
+    div.makeStyles-large-3 {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .profile-link {
+        font-size: 20px;
+    }
+
+    .user-results {
+        width: 40%;
+    }
+
+    .option-buttons {
+        width: 40%;
+    }
+
+    div.comment-avatar {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .comment-content {
+        margin-left: 50px;
+    }
+
+    .comments-add-div {
+        width: 100%;
+    }
+
+    .comments-functions {
+        width: 548px;
+    }
+
+    .comment-input {
+        width: 80%;
+    }
+
+    .follow-button-div {
+        width: 530px;
+    }
+
+    .new-image-div {
+        width: 500px;
+        height: 450px;
+    }
+
+    img.new-img {
+        width: 614px;
+        height: 450px;
+    }
+
+    label.new-img-label {
+        width: 500px;
+        height: 450px;
+    }
+
+    div.MuiAlert-standardInfo {
+        width: 614px;
+        margin: 0 auto;
+    }
+
+    .new-image-buttons {
+        width: 40%;
+    }
+
+    .new-image-inputs {
+        width: 614px;
+    }
+
+    div.makeStyles-paper-2 {
+        width: 40% !important;
+    }
+
+    div.image {
+        width: 170px;
+    }
+
+    div.makeStyles-paper-3 {
+        width: 40% !important;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .home-header {
+        margin-top: 150px;
+    }
+
+    .images {
+        width: 720px;
+    }
+
+    .profile-header {
+        width: 540px;
+    }
+
+    .edit-profile-image-div{
+        justify-content: flex-start;
+        width: 573px;
+    }
+
+    .upload-button {
+        margin-left: 40px !important;
+    }
+
+    .save-div {
+        width: 40%;
+    }
+
+    .comment-div {
+        width: 538px;
+    }
+}
+

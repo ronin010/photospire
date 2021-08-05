@@ -81,10 +81,8 @@ export default function ImageTagsList(props) {
 						images.map((image, idx) => (
 							<Image key={idx} username={image.PostedBy} filename={image.FileName} />
 						))
-
 						: 
-
-						null
+						<h3 style={{textAlign: "center", width: "40%", margin: "0 auto"}}>No Results</h3>
           }
 				</div>
 		</div>

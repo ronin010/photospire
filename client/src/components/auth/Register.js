@@ -1,55 +1,60 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import NavBar from "../Navigation/NavBar";
 import {Button} from "@material-ui/core";
-import GoogleLogin from "react-google-login";
-import {connect} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {register, loadUser} from "../../actions/authActions";
 import Alert from '@material-ui/lab/Alert';
-import {compose} from "redux";
-import {withRouter, Redirect} from "react-router-dom";
+import {useHistory, Redirect} from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import GoogleAuth from "./GoogleAuth";
 
-class Register extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fullName: "",
-      userName: "",
-      email: "",
-      password: "",
-      isLoading: true
-    }
-  }
+export default function Register(props) {
+  const token = localStorage.getItem("token");
 
-  componentDidMount() {
-    // try to load the token and userId if a current logged in user
-    const token = localStorage.getItem("token")
-    
-    // if there is a token and userId present
-    // attempt to load the user
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [isLoading, setLoading] = useState(true);
+
+  const isAuth = useSelector(state => state.auth.isAuthenticated);
+  const visible = useSelector(state => state.auth.visible)
+  const error = useSelector(state => state.auth.error)
+
+  useEffect(() => {
     if (token) {
       setTimeout(() => {
-        this.props.loadUser(token);
-        // when the user is loaded and they are authenticated, stop loading
-        if (this.props.isAuth) {
-          this.setState({isLoading: false})
+        dispatch(loadUser(token));
+
+        if (isAuth) {
+          setLoading(false);
         }
-      }, 1500)
+      }, 1000)
     } else {
-      // if there is no token, then stop loading instantly
-      this.setState({isLoading: false})
+      setLoading(false)
     }
+  }, [dispatch])
+
+  const nameHandler = (e) => {
+    setFullName(e.target.value);
   }
 
-  changeHandler = (e) => {
-    this.setState({...this.state, [e.target.name]: e.target.value});
+  const userNameHandler = (e) => {
+    setUserName(e.target.value);
   }
 
-  submit = () => {
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+  }
 
-    const {fullName, userName, email, password} = this.state;
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+  }
 
+  const submit = () => {
     const user = {
       FullName: fullName,
       UserName: userName,
@@ -57,48 +62,35 @@ class Register extends Component {
       Password: password
     }
 
-    this.props.register(user);
+    dispatch(register(user));
   }
 
-  render() {
-    if (this.props.isAuth) {
-      {/* redirect to the profile of the current loaded user */ }
-      {/* the userId is loaded from local storage after the user is loaded */}
-      return <Redirect to={`/profile/${this.props.user.UserName}`} />
-    } else if (this.state.isLoading) {
+  if (isAuth) {
+    return <Redirect to="/feed" />
+  }
+     else if (isLoading) {
       return <CircularProgress />
     } else {
         return (
         <div>
           <NavBar title="Register" />
           <div className="register-div">
-            <div className="google-login-div">
-              <GoogleAuth />
-            </div>  
-            <div className={this.props.visible?'fadeIn':'fadeOut'} id="error-div">
-              <Alert severity="error">{this.props.error}</Alert>
-            </div>
-            <input onChange={this.changeHandler} name="fullName" type="text" className="register-input" placeholder="Full Name" />
-            <input onChange={this.changeHandler} name="userName" type="text" className="register-input" placeholder="UserName" />
-            <input onChange={this.changeHandler} name="email" type="text" className="register-input" placeholder="Email" />
-            <input onChange={this.changeHandler} name="password" type="password" className="register-input" placeholder="Password" />
-            <Button onClick={this.submit} className="register-button" variant="outlined" color="secondary">Register</Button>
+            {
+              error ?  <div className={visible?'fadeIn':'fadeOut'} id="error-div">
+                        <Alert severity="error">{error}</Alert>
+                      </div>
+                    : null
+            }
+           
+            <input onChange={nameHandler} name="fullName" type="text" className="register-input" placeholder="Full Name" />
+            <input onChange={userNameHandler} name="userName" type="text" className="register-input" placeholder="UserName" />
+            <input onChange={emailHandler} name="email" type="text" className="register-input" placeholder="Email" />
+            <input onChange={passwordHandler} name="password" type="password" className="register-input" placeholder="Password" />
+            <Button onClick={submit} className="register-button" variant="outlined" color="secondary">Register</Button>
             <a style={{textAlign: "center", marginTop: "20px"}} href="/login">Already Have An Account?</a>
           </div>
         </div>
       )
     }
-  }
 }
 
-const mapStateToProps = (state) => ({
-  error: state.auth.error,
-  visible: state.auth.visible,
-  isAuth: state.auth.isAuthenticated,
-  user: state.auth.user
-})
-
-export default compose(
-  withRouter,
-  connect(mapStateToProps, {register, loadUser})
-)(Register);

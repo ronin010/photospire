@@ -24,11 +24,27 @@ a:hover {
 
 .home-div {
   height: 100vh;
-  background-image:linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.1) 40%), url("https://images.pexels.com/photos/1686451/pexels-photo-1686451.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-image:linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.1) 40%), url("https://images.pexels.com/photos/140221/pexels-photo-140221.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
   background-size: cover;
   background-position: center;
   color: white;
   text-align: center;
+}
+
+.home-header {
+  border-bottom: 2px solid #f50057;
+  width: 300px;
+  text-align: center;
+  margin: 125px auto 10px auto;
+  padding-bottom: 10px ;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
 }
 
 .drawer-div {
@@ -69,7 +85,7 @@ a:hover {
 .register-link {
   color: white;
   border: 1px solid white;
-  background-color: transparent;
+  background-color: #1b3f55;
   line-height: 1.75;
   border-radius: 4px;
   min-width: 150px;
@@ -77,11 +93,7 @@ a:hover {
   padding: 5px 15px;
   cursor: pointer;
   margin: 10px;
-}
-
-.register-link:hover {
-  background-color: #1b3f55;
-  opacity: 0.8;
+  width: 300px;
 }
 
 .register-div {
@@ -164,7 +176,7 @@ a:hover {
 
 .text-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   
@@ -174,7 +186,6 @@ a:hover {
   font-size: 18px;
   cursor: pointer;
   margin: 20px auto 10px auto;
-  width: 360px;
   border: 1px solid lightgray;
   border-radius: 8px;
   padding: 3px;
@@ -322,12 +333,12 @@ a:hover {
   color: #eb6e8b;
 }
 
-.profile-image-div {
-  margin: 30px auto 0px auto;
-  width: 50%;
+.edit-profile-image-div {
+  width: 70%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 20px auto 0px auto;
 }
 
 .upload-button {
@@ -363,6 +374,11 @@ a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.posts-count:hover {
+  color: #eb6e8b;
 }
 
 .posts-data {
@@ -556,7 +572,7 @@ a:hover {
 }
 
 .image-data {
-  margin: 20px auto;
+  margin: 10px auto;
   display: flex;
   flex-direction: row;
   justify-content:center;
@@ -727,6 +743,7 @@ a:hover {
   margin: 20px auto 10px auto;
   border-bottom: 1px solid    #D8D8D8;
   padding-bottom: 16px;
+  width: 100%;
 }
 
 .comment-info {
@@ -739,6 +756,7 @@ a:hover {
 
 .all-comments-link {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .all-comments-link:hover {
@@ -796,4 +814,114 @@ a:hover {
   align-items: center;
   width: 80%;
   margin-top: 20px;
+}
+
+.follow-button-div {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+}
+
+.follow-button {
+  height: 30px !important;
+}
+
+.welcome-div {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.feed-div {
+  margin-bottom: 40px;
+}
+
+.feed-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.date-header {
+  width: 250px;
+  margin: 10px auto 20px auto;
+  opacity: 0.5;
+}
+
+.divider {
+  border-bottom: 2px solid #00070c;
+  width: 260px;
+  margin: 10px auto;
+  opacity: 0.4;
+}
+
+img.feed-img {
+  object-fit: cover;
+  cursor: pointer;
+  height: 260px;
+  width: 260px;
+}
+
+.comment-content {
+  margin-left: 35px;
+  margin-top: 10px;
+  overflow-wrap: break-word;
+}
+
+img.new-img {
+  height: 250px;
+  width: 300px;
+  object-fit: contain;
+}
+
+label.new-img-label {
+  cursor: pointer;
+}
+
+.feed-content {
+  display: none;
+}
+
+.feed-card {
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  margin: 20px 0 20px 0;
+  padding-bottom: 20px;
+}
+
+.upload-text {
+  display: none;
+}
+
+div.MuiAlert-standardError {
+  width: 614px;
+  margin: 10px auto 0px auto;
+}
+
+.date-header {
+  width: 250px;
+  margin: 10px auto 0 auto;
+  opacity: 0.5;
+
+}
+
+.desktop-comments {
+  display: none;
+}
+
+.follow-div {
+  width: 60%;
+  margin: 20px auto 0px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.posts-header {
+  margin: 0 auto;
 }

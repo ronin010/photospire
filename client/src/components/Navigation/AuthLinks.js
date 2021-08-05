@@ -12,21 +12,14 @@ export default function AuthLinks() {
     history.push("/");
   }
 
-  const routeToPage = (page) => {
-    history.push(page);
-  }
-
   const user = useSelector(state => state.auth.user);
 
   return (
-      <div className="drawer-links">
-        <Button className="nav-link"><a href={`/profile/${user.UserName}`}>My Profile</a></Button>
-        <Button className="nav-link" onClick={() => history.push("/search")}>Search</Button>
-        <Button className="nav-link" onClick={() => history.push("/")}>Posts Feed</Button>
-        <Button className="nav-link" onClick={() => history.push("https://github.com")}>Github repo</Button>
-        <Button className="nav-link" onClick={() => history.push("/register")}>Privacy policy</Button>
-        <Button className="nav-link" onClick={() => history.push("/faq")}>faq</Button>
-        <Button className="nav-link" onClick={logoutUser}>Logout</Button>
-      </div>
+    <div className="drawer-links">
+      <Button className="nav-link" onClick={() => history.push("/feed")}>Home</Button>
+      <Button className="nav-link"><a href={`/profile/${user.UserName}`}>My Profile</a></Button>
+      <Button className="nav-link" onClick={() => history.push("https://github.com")}>Github repo</Button>
+      <Button className="nav-link" onClick={logoutUser}>Logout</Button>
+    </div>
   )
 }

@@ -11,12 +11,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import Avatar from '@material-ui/core/Avatar';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import { TextareaAutosize, Button } from "@material-ui/core";
 import ImageDataBox from "./ImageDataBox";
 import Comment from "../Comments/Comment";
 import ImageDataModal from "./ImageDataModal";
 import AddComment from "../Comments/AddComment";
 import DeleteImageModal from "./DeleteImageModal";
+import axios from "axios";
 
 export default function ImageDisplay(props) {
   const {username, filename} = useParams();
@@ -30,6 +31,9 @@ export default function ImageDisplay(props) {
   const image = useSelector(state => state.images.currentActive);
   const user = useSelector(state => state.auth.user);
   const isAuth = useSelector(state => state.auth.isAuthenticated);
+  const newComment = useSelector(state => state.images.newComment);
+  const [comment, setComment] = useState("");
+  const [postedComment, setNewComment] = useState({});
   
   const token = localStorage.getItem("token");
   const likesLength = useSelector(state => state.images.likesLength);
@@ -38,7 +42,7 @@ export default function ImageDisplay(props) {
   const [type, setType] = useState("");
   const [data, setData] = useState([]);
 
-  const [comment, setComment] = useState("");
+  const BASE_URL = "http://localhost:8000"
 
   useEffect(() => {
 
@@ -90,20 +94,37 @@ export default function ImageDisplay(props) {
     setOpen(true)
   }
 
+  const commentChangeHandler = (e) => {
+    setComment(e.target.value);
+  }
+
+  const postComment = (e) => {
+    e.preventDefault()
+	  setComment("");
+    
+    const config = {
+      headers: {
+        "Authorization" : token,
+        "Content-Type": "application/json"
+      }
+    }
+
+    const body = {
+      comment
+    }
+
+    axios.post(`${BASE_URL}/api/photos/${image.FileName}/comments/add`, body, config)
+    .then((res) => {
+      setNewComment(res.data.comment);
+    })
+    .catch((err) => console.log(err));
+  }
+
   useLayoutEffect(() => {
     return () => {
       dispatch({type: "SET_ACTIVE", payload: ""})
     }
   }, [dispatch])
-
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  }
-
-  const postComment = (e) => {
-    e.preventDefault();
-    console.log(comment);
-  }
 
   if (loading) {
     return (
@@ -115,7 +136,11 @@ export default function ImageDisplay(props) {
       return (
         <div>
           <NavBar title="PhotoSpire" />
-          <div className="image-functions">
+          <div className="display-main">
+          <div className="image-display">
+            {
+              Object.entries(image).length === 0 ? null :
+              <div className="image-functions">
             <Avatar src={`/uploads/${username}/avatar.jpg`} />  
               <a style={{marginLeft: "10px"}} className="profile-link" href={`/profile/${username}`}>
               <h5 >{username}</h5>
@@ -142,19 +167,20 @@ export default function ImageDisplay(props) {
           </Menu>
           <DeleteImageModal confirmDelete={deletion} cancelDelete={closeConfirmDelete} open={deleteOpen} />
           </div>
-          <h6 style={{width: "250px", margin: "10px auto 0 auto", opacity: "0.5"}}>{image.DatePosted}</h6>
-          <div style={{borderBottom: "2px solid #00070c", width: "260px", margin: "10px auto", opacity: "0.4"}}></div>
-          <div className="image-page-div">
+            }
+          
+          <h6 className="date-header">{image.DatePosted}</h6>
+          <div className="image-page-div display-image-div">
             {
               Object.entries(image).length === 0 ? 
               <div className="loading-div">
                 <div className="lds-ripple"><div></div><div></div></div>
               </div> :
               <img 
-                style={{objectFit: "cover"}} 
+                className="feed-img display-img"
                 src={`/uploads/${username}/${image.FileName}`} 
-                height="260px" 
-                width="260px" 
+                 
+                alt="filename"
               />
             }
           </div>
@@ -174,9 +200,6 @@ export default function ImageDisplay(props) {
                   <ChatBubbleIcon />
                   <h4 style={{marginTop: "4px", marginLeft: "4px"}}>{image.Comments.length}</h4>
                 </ImageDataBox>
-                <ImageDataBox title="BookMark" onClickFunc={() => console.log(user.UserName)}>
-                  <BookmarkBorderIcon />
-                </ImageDataBox>
               </div>
               :
               <div className="loading"></div>
@@ -189,7 +212,9 @@ export default function ImageDisplay(props) {
                 image.Title ? image.Title : <div className="loading"></div>
             }
           </div>  
-          <div style={{borderBottom: "2px solid #00070c", width: "260px", margin: "10px auto", opacity: "0.4"}}></div>
+          <div className="divider display-divider"></div>
+          </div>
+          
           <div className="comments-main">
             { 
 
@@ -198,7 +223,8 @@ export default function ImageDisplay(props) {
                 <div className="lds-ripple"><div></div><div></div></div></div> 
               :
               image.Comments && image.Comments.length > 0 ? 
-                <div>
+              <div>
+                <div className="mobile-comments">
                   {
                     image.Comments.slice(0, 2).map((comment, idx) => (
                       <Comment key={idx} postedBy={comment.postedBy} text={comment.text} date={comment.datePosted} />
@@ -208,17 +234,35 @@ export default function ImageDisplay(props) {
                     <h5>View All Comments</h5>
                   </a>
                 </div>
+                <div className="comments-add-div">	
+                    <div className="comments-functions">
+                      <TextareaAutosize value={comment} onChange={commentChangeHandler} style={{resize: "none"}} className="comment-input" placeholder="Add Comment" rowsMin="1" rowsMax="2" />
+                      <Button onClick={postComment} className="post-comment-button" color="secondary">
+                        Post
+                      </Button>
+                    </div>
+                  </div>
+                <div className="desktop-comments">
+                {
+                    image.Comments.map((comment, idx) => (
+                      <Comment key={idx} postedBy={comment.postedBy} text={comment.text} date={comment.datePosted} />
+                    ))
+                  }
+                </div>
+                </div>
+                
                : 
                 <div>
                   <AddComment />
-                  <h4 className="no-comments">No Comments Yet</h4>
+                  {newComment ? null : <h4 className="no-comments">No Comments Yet</h4>}
                 </div>
             }
+            {
+              Object.entries(postedComment).length > 0 ? <Comment postedBy={postedComment.postedBy} text={postedComment.text} date={postedComment.datePosted} /> : null
+            }
           </div>  
-          
+          </div>
         </div>
       )
     }
 }
-
-// implement post functions (edit report)

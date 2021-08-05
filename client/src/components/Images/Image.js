@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import {useSelector} from "react-redux";
+import React from "react";
 import {useHistory} from "react-router-dom";
 
 export default function Images(props) {
-  const user = useSelector(state => state.auth.user);
   const history = useHistory();
   
   const loadImage = () => {
@@ -11,11 +9,13 @@ export default function Images(props) {
   }
 
   return (
-    <div>
-      
-      <div onClick={loadImage} className="image fadeIn">
-        <img className="user-image" src={`/uploads/${props.username}/${props.filename}`} height="170px" width="170px" />
+      <div onClick={loadImage} className="image fadeIn profile-image-div">
+        <img 
+          className="user-image profile-image"
+          src={`/uploads/${props.username}/${props.filename}`} 
+          height="170px" 
+          width="170px" 
+          alt="filename" />
       </div>
-    </div>
   )
 }

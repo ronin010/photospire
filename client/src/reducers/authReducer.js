@@ -7,13 +7,22 @@ const initialState = {
   visible: false,
   profile: {},
   tempImages: [],
-  loaded: false
+  loaded: false,
+  isFollowing: false
 }
 
 const authReducer = (state = initialState, action) => {
   switch(action.type) {
-    case "REGISTER":
     case "LOGIN":
+      return {
+        ...state, 
+        isAuthenticated: true, 
+        user: action.payload,
+        error: "",
+        Loading: false
+      }
+
+    case "REGISTER":
       return {
         ...state, 
         isAuthenticated: true, 
@@ -91,6 +100,12 @@ const authReducer = (state = initialState, action) => {
           tempImages: [...state.tempImages, action.payload],
           loaded: true
         }
+
+    case "SET_FOLLOWING":
+      return {
+        ...state,
+        isFollowing: action.payload
+      }
 
     default:
       return state;
