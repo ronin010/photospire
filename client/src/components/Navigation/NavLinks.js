@@ -14,7 +14,7 @@ export default function NavLinks() {
       <Button className="nav-link" onClick={() => routeToPage("/")}>Home</Button>
       <Button className="nav-link" onClick={() => routeToPage("/login")}>Sign In</Button>
       <Button className="nav-link" onClick={() => routeToPage("/register")}>Register</Button>
-      <Button className="nav-link" onClick={() => routeToPage("https://github.com")}>Github</Button>
+      <Button className="nav-link" onClick={() => window.open("https://github.com/ronin010/photospire", "_blank")}>Github</Button>
     </div>
   )
 }

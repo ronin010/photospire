@@ -18,7 +18,7 @@ export default function AuthLinks() {
     <div className="drawer-links">
       <Button className="nav-link" onClick={() => history.push("/feed")}>Home</Button>
       <Button className="nav-link"><a href={`/profile/${user.UserName}`}>My Profile</a></Button>
-      <Button className="nav-link" onClick={() => window.open("https://github.com", "_blank")}>Github repo</Button>
+      <Button className="nav-link" onClick={() => window.open("https://github.com/ronin010/photospire", "_blank")}>Github repo</Button>
       <Button className="nav-link" onClick={logoutUser}>Logout</Button>
     </div>
   )
